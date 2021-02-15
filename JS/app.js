@@ -35,7 +35,7 @@ function cvItertorNext(profiles) {
     return {
         next: function() {
             // --> Using ternary operator.
-            return (nextIndex<profiles.length) ? {value: profiles[nextIndex++], done: false} : {done: true};
+            return nextIndex<profiles.length ? {value: profiles[nextIndex++], done: false} : {done: true};
         }
     }
 }
@@ -50,23 +50,48 @@ function cvItertorPrevious(profiles, currentIndex) {
     }
 }
 
-// => Button listner for next button
+// => Button listner for next and previous buttons
 let next = document.getElementById('next');
 let previous = document.getElementById('previous');
-
 next.addEventListener('click', nextCV);
 previous.addEventListener('click', previousCV);
 
+
+// Variable to access the profile data of the candidates.
+const candidates = cvItertorNext(data);
+
+nextCV();
+
 function nextCV() {
+    const currentCandidate = candidates.next().value;
+
     let img = document.getElementById('img');
     let profile = document.getElementById('profile');
-    img.innerHTML = `<img scr=''></img>`;
-    profile.innerHTML = ``;
+    img.innerHTML = `<img src='${currentCandidate.image}'>`;
+    profile.innerHTML = `<ul class="list-group list-group-flush">
+                            <li class="list-group-item">Name: ${currentCandidate.name}</li>
+                            <li class="list-group-item">Age: ${currentCandidate.age}</li>
+                            <li class="list-group-item">Location: ${currentCandidate.city}</li>
+                            <li class="list-group-item">Language: ${currentCandidate.language}</li>
+                            <li class="list-group-item">Framework: ${currentCandidate.framework}</li>
+                        </ul>`;
     
 }
 
 function previousCV() {
+    // Variable to access the profile data of the candidates.
+    const candidates = cvItertorNext(data);
+    const currentCandidate = candidates.next.value();
+
     let img = document.getElementById('img');
     let profile = document.getElementById('profile');
-
+    img.innerHTML = `<img src='${currentCandidate.image}'></img>`;
+    profile.innerHTML = `<ul class="list-group list-group-flush">
+                            <li class="list-group-item">Name: ${currentCandidate.name}</li>
+                            <li class="list-group-item">Age: ${currentCandidate.age}</li>
+                            <li class="list-group-item">Location: ${currentCandidate.city}</li>
+                            <li class="list-group-item">Language: ${currentCandidate.language}</li>
+                            <li class="list-group-item">Framework: ${currentCandidate.framework}</li>
+                        </ul>`;
+    
 }
