@@ -64,7 +64,7 @@ nextCV();
 
 function nextCV() {
     const currentCandidate = candidates.next().value;
-
+    if(currentCandidate != undefined) {
     let img = document.getElementById('img');
     let profile = document.getElementById('profile');
     img.innerHTML = `<img src='${currentCandidate.image}'>`;
@@ -75,6 +75,11 @@ function nextCV() {
                             <li class="list-group-item">Language: ${currentCandidate.language}</li>
                             <li class="list-group-item">Framework: ${currentCandidate.framework}</li>
                         </ul>`;
+    }
+    else {
+        alert("The end of applications.");
+        location.reload();
+    }
     
 }
 
